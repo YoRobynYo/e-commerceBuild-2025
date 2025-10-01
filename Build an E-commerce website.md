@@ -1,3 +1,7 @@
+## updates made 1st October 2025 -cursor.ai
+
+
+
 ### access the backend terminal ###
 cd /Users/robynmai/DeskumentProjects/Maiway-582435/maiway/backend/e-commerceBuild-2025
 
