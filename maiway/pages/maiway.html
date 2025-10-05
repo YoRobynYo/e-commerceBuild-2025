@@ -8,15 +8,80 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/maiway.css">
+    <link rel="stylesheet" href="../css/chat-widget.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
 </head>
 
 <body>
 
+    <div class="page-content">
+        <h1>Welcome to Maiway</h1>
+        <h2>What would you like to buy today!</h2>
+
+        <div class="main-page-placeholder">
+
+            <p>Click the chat widget in the corner to get started!</p>
+        </div>
+    </div>
+
+    <div class="chat-button" id="chatButton">
+        <svg viewBox="0 0 24 24">
+            <path
+                d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.38 0-2.67-.33-3.82-.91l-.27-.16-2.86.77.77-2.86-.16-.27C5.33 14.67 5 13.38 5 12c0-3.86 3.14-7 7-7s7 3.14 7 7-3.14 7-7 7z" />
+        </svg>
+        <div class="chat-notification" id="chatNotification" style="display: none;">0</div>
+    </div>
+
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <div class="chat-header-left">
+                <div class="chat-avatar">M</div>
+                <div class="chat-header-info">
+                    <h3>Maiway Support</h3>
+                    <p>Online</p>
+                </div>
+            </div>
+            <button class="close-chat" id="closeChat">&times;</button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="bubble">
+                    Hi there! Welcome to Maiway. How can I help you today?
+                    <div class="message-time">Just now</div>
+                </div>
+            </div>
+
+            <div class="quick-replies">
+                <button class="quick-reply" data-reply="What products do you have?">Browse Products</button>
+                <button class="quick-reply" data-reply="Track my order">Track Order</button>
+                <button class="quick-reply" data-reply="Need help with returns">Returns</button>
+            </div>
+
+            <div class="message bot">
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="Type a message...">
+            <button class="send-button" id="sendButton">
+                <svg viewBox="0 0 24 24">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script src="../js/chat-widget.js"></script>
+    <!-- <script src="../js/maiway.js"></script> -->
 
 
-    <script src="../js/maiway.js"></script>
 </body>
 
 </html>

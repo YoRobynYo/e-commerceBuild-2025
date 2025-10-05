@@ -25,10 +25,10 @@ function createWindow() {
 
   // Load the app
   if (isDev) {
-    mainWindow.loadFile(path.join(__dirname, 'dist', 'index.html'));
+    mainWindow.loadFile(path.join(__dirname, 'pages', 'maiway.html'));
     mainWindow.webContents.openDevTools();
   } else {
-    mainWindow.loadFile(path.join(__dirname, 'dist', 'index.html'));
+    mainWindow.loadFile(path.join(__dirname, 'pages', 'maiway.html'));
   }
 
   // Show window when ready to prevent visual flash

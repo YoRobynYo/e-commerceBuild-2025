@@ -107,4 +107,69 @@ body {
   z-index: 1000;
 }
 
+/* Main Page Content Styles */
+.page-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.page-content h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  margin-bottom: 8px;
+}
+
+.page-content h2 {
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 400;
+  color: #4a5568;
+  margin-bottom: 50px;
+}
+
+.main-page-placeholder {
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+}
+
+/* Layer 2: The Image (on top) */
+.main-page-placeholder::before {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-bottom: 125%;
+  background-image: url("../public/assets/chat-img-mobile.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Layer 1: The Gradient (behind) */
+.main-page-placeholder::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400px;
+  background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+  border-radius: 16px;
+  z-index: 1;
+}
+
+.main-page-placeholder p {
+  font-size: 16px;
+  color: #718096;
+  line-height: 1.5;
+}
+
 /*# sourceMappingURL=maiway.css.map */

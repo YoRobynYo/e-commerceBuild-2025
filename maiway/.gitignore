@@ -1,42 +1,146 @@
-# Dependencies
+gitignore
+
+# ============================================
+# PYTHON
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+instance/
+.webassets-cache
+
+# ============================================
+# NODE.JS / JAVASCRIPT
+# ============================================
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+package-lock.json  # Optional - some teams commit this
+.npm
+.eslintcache
 
-# Build outputs
+# ============================================
+# BUILD OUTPUTS
+# ============================================
 dist/
 release/
 build/
+out/
 
-# Environment variables
+# ============================================
+# ENVIRONMENT VARIABLES (CRITICAL!)
+# ============================================
 .env
 .env.local
+.env.*.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# IDE
+# ============================================
+# DATABASES (NEVER COMMIT!)
+# ============================================
+*.db
+*.sqlite
+*.sqlite3
+local.db
+
+# ============================================
+# IDE / EDITORS
+# ============================================
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
+*.sublime-project
+*.sublime-workspace
 
-# OS
+# ============================================
+# OS FILES
+# ============================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
 
-# Logs
+# ============================================
+# LOGS
+# ============================================
 logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Coverage
+# ============================================
+# COVERAGE / TESTING
+# ============================================
 coverage/
 .nyc_output/
+.coverage
+htmlcov/
 
-# Electron
-out/
-
-# Temporary files
+# ============================================
+# TEMPORARY FILES
+# ============================================
 *.tmp
 *.temp
+*.swp
+*.swo
+*~
+
+# ============================================
+# ELECTRON (if using)
+# ============================================
+out/
+
+# ============================================
+# DOCKER (if using)
+# ============================================
+docker-compose.override.yml
+
+# ============================================
+# SECRETS & KEYS (EXTRA SAFETY!)
+# ============================================
+*.pem
+*.key
+*.cert
+secrets/
+credentials/
+
+# ADD THESE to protect Python projects:
+__pycache__/          # Python cache files
+*.pyc                 # Compiled Python
+venv/                 # Virtual environment
+*.db                  # Database files
+*.sqlite              # SQLite databases
+.pytest_cache/        # Test cache

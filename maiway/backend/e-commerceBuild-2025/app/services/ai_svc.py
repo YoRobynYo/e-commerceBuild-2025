@@ -1,54 +1,82 @@
 from typing import Optional
 import logging
-from ..config import settings
+import httpx
 
 logger = logging.getLogger(__name__)
 
-# Try to import LangChain components
-try:
-    from langchain_openai import ChatOpenAI
-    from langchain.chains import ConversationalRetrievalChain
-    from ..ai.retriever import get_retriever
-    HAS_LANGCHAIN = True
-except ImportError:
-    HAS_LANGCHAIN = False
-    logger.warning("LangChain not available - AI chat features disabled")
+# Ollama configuration
+OLLAMA_BASE_URL = "http://localhost:11434"
+OLLAMA_MODEL = "llama3.1:latest"  # or llama2, mistral, etc.
 
-retriever = None
-llm = None
+class OllamaClient:
+    """Simple Ollama client for chat"""
+    
+    def __init__(self, base_url: str = OLLAMA_BASE_URL, model: str = OLLAMA_MODEL):
+        self.base_url = base_url
+        self.model = model
+    
+    async def chat(self, message: str, context: str = "") -> str:
+        """Send a chat message to Ollama"""
+        try:
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                prompt = f"{context}\n\nUser: {message}\nAssistant:" if context else message
+                
+                response = await client.post(
+                    f"{self.base_url}/api/generate",
+                    json={
+                        "model": self.model,
+                        "prompt": prompt,
+                        "stream": False
+                    }
+                )
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    return result.get("response", "No response from AI")
+                else:
+                    logger.error(f"Ollama error: {response.status_code}")
+                    return "AI service temporarily unavailable"
+                    
+        except httpx.ConnectError:
+            logger.error("Cannot connect to Ollama - is it running? Run 'ollama serve'")
+            return "AI assistant is offline. Please start Ollama with 'ollama serve'"
+        except Exception as e:
+            logger.error(f"Error calling Ollama: {e}")
+            return "I'm having trouble processing your request right now."
+
+# Global client
+ollama_client = None
 
 def init_ai():
-    """Initialize AI components with proper error handling"""
-    global retriever, llm
+    """Initialize Ollama client"""
+    global ollama_client
     try:
-        if HAS_LANGCHAIN and settings.OPENAI_API_KEY:
-            llm = ChatOpenAI(temperature=0, api_key=settings.OPENAI_API_KEY)
-            retriever = get_retriever()
-            logger.info("AI chat service initialized successfully")
-        else:
-            llm = None
-            retriever = None
-            if not HAS_LANGCHAIN:
-                logger.warning("LangChain not available")
-            if not settings.OPENAI_API_KEY:
-                logger.warning("OpenAI API key not configured")
+        ollama_client = OllamaClient()
+        logger.info("Ollama chat service initialized")
     except Exception as e:
-        logger.error(f"Error initializing AI: {e}")
-        llm = None
-        retriever = None
+        logger.error(f"Error initializing Ollama: {e}")
+        ollama_client = None
 
 async def assistant_reply(message: str, user_email: Optional[str] = None) -> str:
-    """Generate AI assistant reply with error handling"""
+    """Generate AI assistant reply using Ollama"""
     try:
-        if not HAS_LANGCHAIN or not settings.OPENAI_API_KEY or not llm or not retriever:
-            return "AI assistant is offline (missing OpenAI key or LangChain). Describe your issue and support will reply."
+        if not ollama_client:
+            init_ai()
         
-        chain = ConversationalRetrievalChain.from_llm(llm, retriever)
-        res = chain({"question": message, "chat_history": []})
-        return res["answer"]
+        if not ollama_client:
+            return "AI assistant is offline. Make sure Ollama is running ('ollama serve')"
+        
+        # Add context to make responses more helpful
+        context = """You are a helpful e-commerce assistant. 
+You help customers with their orders, products, and general inquiries.
+Keep responses concise and friendly."""
+        
+        response = await ollama_client.chat(message, context)
+        return response
+        
     except Exception as e:
         logger.error(f"Error in assistant_reply: {e}")
-        return "I'm having trouble processing your request right now. Please try again or contact support."
+        return "I'm having trouble processing your request right now. Please try again."
 
-# Initialize AI on import
+# Initialize on import
 init_ai()

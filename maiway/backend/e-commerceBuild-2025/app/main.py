@@ -1,3 +1,4 @@
+from .chat.chat_api import router as chat_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -8,6 +9,7 @@ from . import models
 from .routes import users, products, checkout, stripe_webhooks, orders, analytics
 
 app = FastAPI(title="AI Commerce Backend")
+app.include_router(chat_router, prefix="/api", tags=["chat"])
 
 app.add_middleware(
     CORSMiddleware,
