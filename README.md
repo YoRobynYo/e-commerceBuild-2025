@@ -6,7 +6,7 @@ A modern, full-stack e-commerce platform built with Electron (frontend) and Fast
 
 - **Frontend**: Electron app with modern web technologies
 - **Backend**: FastAPI with PostgreSQL database
-- **AI Integration**: LangChain with OpenAI for customer support
+- **AI Integration**: AI Integration: Free-tier AI with Ollama (local development) and Groq API (production).
 - **Payments**: Stripe integration
 - **Deployment**: Docker containerization
 
@@ -140,7 +140,6 @@ JWT_SECRET=your-secret-key
 FRONTEND_URL=http://localhost:5173
 STRIPE_SECRET_KEY=sk_test_xxx
 STRIPE_WEBHOOK_SECRET=whsec_xxx
-OPENAI_API_KEY=sk-xxx
 SENDGRID_API_KEY=SG.xxx
 FROM_EMAIL=no-reply@maiway.com
 ```

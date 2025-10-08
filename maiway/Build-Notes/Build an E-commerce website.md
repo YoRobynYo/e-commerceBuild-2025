@@ -18,7 +18,9 @@ sass css/maiway.scss dist/css/maiway.css --source-map --watch
 
 
 ### access the backend terminal ###
-cd /Users/robynmai/DeskumentProjects/Maiway-582435/maiway/backend/app
+cd /Users/robynmai/DeskumentProjects/Maiway-582435/maiway/backend/app 
+
+
 
 ### start the server 
 source .venv/bin/activate

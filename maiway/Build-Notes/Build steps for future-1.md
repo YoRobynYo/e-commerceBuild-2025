@@ -50,6 +50,3 @@ Practical steps you can take now
         Test core flows: signup/login, browsing products, add-to-cart, checkout, chat with /api/chat.
         Validate payments in test mode (Stripe test keys).
         Verify chat latency and error handling.
-
-
-If you want, I can draft a concrete, step-by-step production plan with exact commands for your current repo layout (which files to move, what to rename, and how to configure CI/CD). Tell me which path you prefer (Web-first or keep Electron as the primary).
